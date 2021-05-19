@@ -2,11 +2,13 @@ package com.atcnetz.de.notification;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -138,12 +140,28 @@ public class ScanActivity extends Activity implements BluetoothAdapter.LeScanCal
         startScan();
     }
 
+    boolean popup_was_shown = false;
+
     @NeedsPermission(Manifest.permission.ACCESS_FINE_LOCATION)
     void startScan() {
         if ((mBTAdapter != null) && (!mIsScanning)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (this.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                    if (!popup_was_shown) {
+                        popup_was_shown = true;
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                        alertDialogBuilder.setMessage("This app collects location data to enable bluetooth scanning even when the app is closed or not in use.");
+                        alertDialogBuilder.setTitle("Location permission");
+                        alertDialogBuilder.setNegativeButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                            }
+                        });
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    }
                 } else {
                     mBTAdapter.getBluetoothLeScanner().startScan(mLeScanCallback);
                     mIsScanning = true;
@@ -158,7 +176,6 @@ public class ScanActivity extends Activity implements BluetoothAdapter.LeScanCal
             }
         }
     }
-
     void stopScan() {
         if (mBTAdapter != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
