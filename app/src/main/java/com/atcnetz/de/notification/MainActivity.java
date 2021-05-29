@@ -113,7 +113,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse("http://atcnetz.blogspot.de/p/datenschutzerklarung-fur-apps-im-google.html"));
+                intent.setData(Uri.parse("https://atcnetz.de/privacy_policy.html"));
                 startActivity(intent);
             }
         });
