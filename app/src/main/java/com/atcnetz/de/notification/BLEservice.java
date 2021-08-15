@@ -248,6 +248,10 @@ public class BLEservice extends Service {
                     e.printStackTrace();
                 }
                 String bleText = "";
+                if(appName == null) appName = "MissingNo.";
+                if(Title == null) Title = "Empty";
+                if(Text == null) Text = "Empty";
+                if(tickerText == null) tickerText = "Empty";
 
                 switch (prefs.getInt("NotificationMode", 0)) {
                     case 0:
@@ -284,7 +288,20 @@ public class BLEservice extends Service {
                         if (isConnected) {
                             if (System.currentTimeMillis() - lastTime > 1000) {
                                 lastTime = System.currentTimeMillis();
-                                addCMD("AT+PUSH=0," + bleText + ",0");
+                                try {
+                                    addCMD("AT+PUSH=0," + bleText + ",0");
+
+                                    sleep(30);
+                                    addCMD("AT+NAME=" + appName);
+                                    sleep(30);
+                                    addCMD("AT+TITL=" + Title);
+                                    sleep(30);
+                                    addCMD("AT+TICK=" + tickerText);
+                                    sleep(30);
+                                    addCMD("AT+BODY=" + Text);
+                                }catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                             } else {
                                 postToastMessageLog("will not send now because timout not reached for new message");
                             }
