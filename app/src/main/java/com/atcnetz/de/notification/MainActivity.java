@@ -240,7 +240,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     public void load() {
-        tvContent.setText("Please click on Select Device to select your D6 Fitness Tracker, you need to accept Location services to enable Bluetooth acces to this app.\r\n\r\nYou can Enable or Disable the notification for certain app's via the Select App's Button.\r\n\r\nHave fun with this App and give me feedback if you found a bug :)\r\n");
+        tvContent.setText("Please click on Select Device to select your D6 Fitness Tracker, you need to accept Location services to enable Bluetooth acces to this app.\r\n\r\nYou can Enable or Disable the notification for certain app's via the Select App's Button.\r\n\r\nHave fun with this App and give me feedback if you found a bug :)\r\n\r\nSpecial thanks the following people for contributions:\r\nNeil O'Brien\r\n");
         FileInputStream fis = null;
         try {
             fis = openFileInput("D6notfifier.log");
