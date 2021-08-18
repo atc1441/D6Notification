@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -40,6 +41,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private BroadcastReceiver broadcastReceiver;
     private LocalBroadcastManager localBroadcastManager;
     TextView tvContent;
+    TextView tvHeartrate;
+    TextView tvSteps;
+    TextView tvTemp;
+    ImageView imageHeartrate;
+    ImageView imageSteps;
+    ImageView imageTemp;
     ScrollView scrollview;
     Button Button1;
     Button Button2;
@@ -117,6 +124,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 startActivity(intent);
             }
         });
+
+        tvHeartrate = (TextView) findViewById(R.id.textViewHeartrateID);
+        // TODO add heartrate
+        tvSteps = (TextView) findViewById(R.id.textViewStepcountID);
+        tvSteps.setText("Steps: " + prefs.getString("Steps", "0"));
+        tvTemp = (TextView) findViewById(R.id.textViewTempID);
+        tvTemp.setText("Battery: " + prefs.getString("BatteryPercent", "xxx") + "% ");
+
+
+        imageHeartrate = (ImageView) findViewById(R.id.imageViewHeartrateID);
+        imageSteps = (ImageView) findViewById(R.id.imageViewStepsID);
+        imageTemp = (ImageView) findViewById(R.id.imageViewTempID);
+
+
         if (!isNotificationServiceEnabled()) {
             enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog();
             enableNotificationListenerAlertDialog.show();

@@ -391,7 +391,7 @@ public class BLEservice extends Service {
 
     private void setNotify() {
         updateNitify((isConnected ? "Connected" : "Disconnected") + " - Steps: " + prefs.getString("Steps", "0") + " - Battery: " + prefs.getString("BatteryPercent", "xxx") + "% " + (prefs.getBoolean("isDebugEnabled", false) ? "- Last Answer: " + lastReceiveTime : ""));
-    }
+    } //TODO look here for step data
 
     private void setLastReceiveTime() {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");

@@ -1,11 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".NofiticationPicker"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp">
+    tools:context=".NofiticationPicker">
 
     <TextView
         android:id="@+id/textView2"
@@ -13,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Welcome to the D6 Notification App" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -77,6 +77,97 @@
             android:text="HTTP/LOG Settings" />
 
     </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="4dp"
+        android:clickable="true"
+        android:clipToPadding="false"
+        android:paddingHorizontal="10dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp"
+        app:cardMaxElevation="50dp"
+        app:contentPadding="3dp">
+
+        <ImageView
+            android:id="@+id/imageViewStepsID"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/human_footprint" />
+
+        <TextView
+            android:id="@+id/textViewStepcountID"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="4dp"
+        android:clickable="true"
+        android:clipToPadding="false"
+        app:cardBackgroundColor="#03BF0B"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp"
+        app:cardMaxElevation="50dp"
+        app:contentPadding="3dp">
+
+        <TextView
+            android:id="@+id/textViewTempID"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/imageViewTempID"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@android:drawable/ic_lock_idle_low_battery"
+            android:visibility="visible" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="4dp"
+        android:clickable="true"
+        android:clipToPadding="false"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp"
+        app:cardMaxElevation="50dp"
+        app:contentPadding="3dp">
+
+        <ImageView
+            android:id="@+id/imageViewHeartrateID"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/heart"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/textViewHeartrateID"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+    </androidx.cardview.widget.CardView>
 
     <ScrollView
         android:id="@+id/scroll"
