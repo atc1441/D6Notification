@@ -52,11 +52,13 @@ public class Settings extends Activity {
         initMovementDisplay();
         initDisplayMode();
         initNotifiContent();
+        /*
         initAlarm0();
         initAlarm1();
         initAlarm2();
         initAlarm3();
         initAlarm4();
+         */
         initDoNotDisturb();
 
     }
@@ -267,7 +269,7 @@ public class Settings extends Activity {
         else Radiobutton4.setChecked(true);
 
     }
-
+/*
     Integer AlarmDaysM1 = 0;
     EditText Alarm1h;
     EditText Alarm1m;
@@ -557,6 +559,8 @@ public class Settings extends Activity {
         });
 
     }
+*/
+
 
     void initDoNotDisturb() {
         final EditText notDistStartH = findViewById(R.id.notDistStartH);

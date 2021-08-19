@@ -1,167 +1,73 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayoutID"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#8A8A8A"
     android:orientation="vertical"
     tools:context=".NofiticationPicker">
 
     <TextView
         android:id="@+id/textView2"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="Welcome to the D6 Notification App" />
 
     <LinearLayout
+        android:id="@+id/checkboxRowID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="horizontal">
+
         <CheckBox
             android:id="@+id/checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enable Notification's"/>
+            android:text="Enable Notification's"
+            tools:ignore="TouchTargetSizeCheck" />
+
         <CheckBox
-        android:id="@+id/checkBox1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enable Log MSG's"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/button1"
+            android:id="@+id/checkBox1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Device" />
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select App's" />
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/open_privacy_policy" />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Clear Log" />
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Settings" />
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="HTTP/LOG Settings" />
+            android:text="Enable Log MSG's"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </LinearLayout>
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
+        android:id="@+id/WatchCardID"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="140dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="3dp"
+        android:clickable="true"
+        android:clipToPadding="false"
+        android:visibility="visible"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="5dp"
+        app:cardPreventCornerOverlap="false"
+        app:contentPadding="3dp"
+        tools:ignore="DuplicateSpeakableTextCheck">
+        <!-- Main Content View -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_margin="4dp"
-            android:clickable="true"
-            android:clipToPadding="false"
-            app:cardBackgroundColor="#03BF0B"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="5dp"
-            app:cardMaxElevation="50dp"
-            app:contentPadding="3dp">
-
-            <TextView
-                android:id="@+id/textViewTempID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView"
-                android:textAlignment="center"
-                android:textSize="20sp" />
-
-            <ImageView
-                android:id="@+id/imageViewTempID"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@android:drawable/ic_lock_idle_low_battery"
-                android:visibility="visible" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_margin="4dp"
-            android:clickable="true"
-            android:clipToPadding="false"
-            android:paddingHorizontal="10dp"
-            app:cardBackgroundColor="#FFFFFF"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="5dp"
-            app:cardMaxElevation="50dp"
-            app:contentPadding="3dp">
-
-            <ImageView
-                android:id="@+id/imageViewStepsID"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/human_footprint" />
-
-            <TextView
-                android:id="@+id/textViewStepcountID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView"
-                android:textAlignment="center"
-                android:textSize="20sp" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_margin="4dp"
-            android:clickable="true"
-            android:clipToPadding="false"
-            app:cardBackgroundColor="#FFFFFF"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="5dp"
-            app:cardMaxElevation="50dp"
-            app:contentPadding="3dp">
-
-            <ImageView
-                android:id="@+id/imageViewHeartrateID"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/heart"
-                android:visibility="visible" />
+            <Button
+                android:id="@+id/button"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="48dp"
+                android:layout_height="33dp"
+                android:drawableStart="@android:drawable/ic_menu_manage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textViewHeartrateID"
@@ -170,20 +76,163 @@
                 android:layout_weight="1"
                 android:text="TextView"
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/textViewStepcountID"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageViewHeartrateID" />
 
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/imageViewStepsID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/human_footprint"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageViewTempID" />
 
-    <ScrollView
-        android:id="@+id/scroll"
+            <ImageView
+                android:id="@+id/imageViewHeartrateID"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:src="@drawable/heart"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/imageViewStepsID"
+                app:layout_constraintStart_toEndOf="@+id/imageViewTempID" />
+
+            <TextView
+                android:id="@+id/textViewStepcountID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageViewStepsID" />
+
+            <TextView
+                android:id="@+id/textViewTempID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textSize="17sp"
+                app:layout_constraintStart_toEndOf="@+id/imageViewTempID"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageViewTempID"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_weight="1"
+                android:contentDescription="Device Image or missingno"
+                android:src="@drawable/imagepinetime"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/otherButtonsCardID"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="115dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="3dp"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="5dp"
+        app:cardPreventCornerOverlap="false"
+        app:contentPadding="2dp">
 
-        <TextView
-            android:id="@+id/tv_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp" />
-    </ScrollView>
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/button1"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:shadowColor="#0048FF"
+                android:text="Select Device"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button4"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:shadowColor="#0048FF"
+                android:text="Select App's"
+                app:layout_constraintEnd_toStartOf="@+id/button2"
+                app:layout_constraintStart_toEndOf="@+id/button1"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button3"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:shadowColor="#0048FF"
+                android:text="Clear Log"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/button5"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:shadowColor="#0048FF"
+                android:text="HTTP/LOG Settings"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/button3" />
+
+            <Button
+                android:id="@+id/button2"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:shadowColor="#0048FF"
+                android:text="@string/open_privacy_policy"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/scrollCardID"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="3dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        app:cardBackgroundColor="#000000"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="5dp"
+        app:cardPreventCornerOverlap="false">
+
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#00FF00" />
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
+
 </LinearLayout>
