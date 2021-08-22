@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:text="Select All" />
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/selectDevButtonID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Deselect All" />

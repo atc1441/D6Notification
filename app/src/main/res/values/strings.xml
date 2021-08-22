@@ -4,4 +4,8 @@
     <string name="bt_disabled">Bluetooth disabled, turn on and restart</string>
     <string name="welcome">\nPlease wait a moment and then select your D6 Fitness Tracker.\n</string>
     <string name="open_privacy_policy">Privacy policy</string>
+    <string name="title_activity_root">RootActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

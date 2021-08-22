@@ -4,37 +4,41 @@
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name = "android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name = "android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-feature
         android:name="android.hardware.bluetooth_le"
         android:required="true" />
 
     <application
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true"
         android:icon="@drawable/ic_launcher"
         android:label="D6 Notification"
+        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
         <activity
-            android:windowSoftInputMode="stateHidden"
+            android:name=".D6SettingsActivity"
+            android:exported="true" />
+        <activity
             android:name=".Settings"
-            android:label="Settings" />
+            android:label="Settings"
+            android:windowSoftInputMode="stateHidden" />
         <activity
-            android:windowSoftInputMode="stateHidden"
             android:name=".httplogset"
-            android:label="HTTP/Log Settings" />
+            android:label="HTTP/Log Settings"
+            android:windowSoftInputMode="stateHidden" />
         <activity
-            android:windowSoftInputMode="stateHidden"
             android:name=".app_filter"
-            android:label="App Notification filter" />
+            android:label="App Notification filter"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".NofiticationPicker"
             android:label="Notification Picker" />

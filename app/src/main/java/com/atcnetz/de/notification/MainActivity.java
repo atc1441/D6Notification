@@ -11,16 +11,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.provider.Settings;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -33,57 +34,49 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private static final String ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
     private static final String ACTION_NOTIFICATION_LISTENER_SETTINGS = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
     private AlertDialog enableNotificationListenerAlertDialog;
-
     public static final String EXTRA_BLUETOOTH_DEVICE = "BT_DEVICE";
-
     private BluetoothDevice mDevice;
-
     private BroadcastReceiver broadcastReceiver;
     private LocalBroadcastManager localBroadcastManager;
+    //Textviews
     TextView tvContent;
-    TextView tvHeartrate;
+    TextView tvHeartRate;
     TextView tvSteps;
     TextView tvTemp;
-    ImageView imageHeartrate;
-    ImageView imageSteps;
-    ImageView imageTemp;
-    ScrollView scrollview;
-    Button Button1;
-    Button Button2;
-    Button Button3;
+    TextView tvFirmwareVersion;
+    //Buttons
+    ImageButton DeviceImageButton;
+    ImageButton SettingsButton;
     Button Button4;
-    Button Button5;
-    Button Button6;
     CheckBox checkBox;
     CheckBox checkBox1;
+    //Other
+    ScrollView scrollview;
+
+    SharedPreferences prefs;
+    SharedPreferences.Editor editor;
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.button) {
+        if (v.getId() == R.id.SettingsButtonID) {
             Intent intent = new Intent(this, com.atcnetz.de.notification.Settings.class);
             startActivityForResult(intent, 34);
-        } else if (v.getId() == R.id.button5) {
-            Intent intent = new Intent(this, com.atcnetz.de.notification.httplogset.class);
-            startActivityForResult(intent, 2);
-        } else if (v.getId() == R.id.button1) {
-            Intent intent = new Intent(this, ScanActivity.class);
-            startActivityForResult(intent, 2);
-        } else if (v.getId() == R.id.button3) {
+        } else if (v.getId() == R.id.clearLogButtonID) {
             clearLog();
             load();
             scrollDown();
-        } else if (v.getId() == R.id.button4) {
+        } else if (v.getId() == R.id.selectAppsButtonID) {//TODO remove this after test
             Intent intent = new Intent(this, NofiticationPicker.class);
             startActivityForResult(intent, 2);
             scrollDown();
         } else if (v.getId() == R.id.checkBox) {
-            SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+            editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
             editor.putBoolean("isNotificationEnabled", checkBox.isChecked());
             editor.apply();
             stopService(new Intent(this, BLEservice.class));
             if (checkBox.isChecked() && !isMyServiceRunning()) startService(new Intent(this, BLEservice.class));
         } else if (v.getId() == R.id.checkBox1) {
-            SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+            editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
             editor.putBoolean("isDebugEnabled", checkBox1.isChecked());
             editor.apply();
         }
@@ -93,51 +86,26 @@ public class MainActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Textviews
         tvContent = (TextView) findViewById(R.id.tv_content);
         scrollview = (ScrollView) findViewById(R.id.scroll);
-        Button1 = findViewById(R.id.button);
-        Button1.setOnClickListener(this);
-        Button2 = findViewById(R.id.button1);
-        Button2.setOnClickListener(this);
-        Button4 = findViewById(R.id.button3);
+        //Buttons
+        SettingsButton = findViewById(R.id.SettingsButtonID);
+        SettingsButton.setOnClickListener(this);
+        Button4 = findViewById(R.id.clearLogButtonID);
         Button4.setOnClickListener(this);
-        Button5 = findViewById(R.id.button4);
-        Button5.setOnClickListener(this);
-        Button6 = findViewById(R.id.button5);
-        Button6.setOnClickListener(this);
         checkBox = findViewById(R.id.checkBox);
         checkBox.setOnClickListener(this);
         checkBox1 = findViewById(R.id.checkBox1);
         checkBox1.setOnClickListener(this);
+        //Other
+        prefs = getSharedPreferences("Settings", MODE_PRIVATE);
 
-        SharedPreferences prefs = getSharedPreferences("Settings", MODE_PRIVATE);
+        //Set checkbox
         checkBox.setChecked(prefs.getBoolean("isNotificationEnabled", true));
         checkBox1.setChecked(prefs.getBoolean("isDebugEnabled", false));
 
-        Button3 = (Button) findViewById(R.id.button2);
-        Button3.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse("https://atcnetz.de/privacy_policy.html"));
-                startActivity(intent);
-            }
-        });
-
-        tvHeartrate = (TextView) findViewById(R.id.textViewHeartrateID);
-        // TODO add heartrate
-        tvSteps = (TextView) findViewById(R.id.textViewStepcountID);
-        tvSteps.setText("Steps: " + prefs.getString("Steps", "0"));
-        tvTemp = (TextView) findViewById(R.id.textViewTempID);
-        tvTemp.setText("Battery: " + prefs.getString("BatteryPercent", "xxx") + "% ");
-
-
-        imageHeartrate = (ImageView) findViewById(R.id.imageViewHeartrateID);
-        imageSteps = (ImageView) findViewById(R.id.imageViewStepsID);
-        imageTemp = (ImageView) findViewById(R.id.imageViewTempID);
-
-
+        //check for DnDisturb
         if (!isNotificationServiceEnabled()) {
             enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog();
             enableNotificationListenerAlertDialog.show();
@@ -151,6 +119,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         };
         //if(!isMyServiceRunning() && prefs.getBoolean("isNotificationEnabled", true))startService(new Intent(this, BLEservice.class));
+
+
+        initWatchInfo();
     }
 
     private boolean isNotificationServiceEnabled() {
@@ -263,6 +234,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void load() {
         tvContent.setText("Please click on Select Device to select your D6 Fitness Tracker, you need to accept Location services to enable Bluetooth acces to this app.\r\n\r\nYou can Enable or Disable the notification for certain app's via the Select App's Button.\r\n\r\nHave fun with this App and give me feedback if you found a bug :)\r\n\r\nSpecial thanks the following people for contributions:\r\nNeil O'Brien\r\n");
         FileInputStream fis = null;
+        updateWatchInfo();
         try {
             fis = openFileInput("D6notfifier.log");
             InputStreamReader isr = new InputStreamReader(fis);
@@ -306,6 +278,71 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
             }
         }
+    }
+
+    void initWatchInfo() {
+        String BatteryPercent = prefs.getString("BatteryPercent", "xxx");
+        String FirmwareVersion = prefs.getString("FirmwareVersion", "not loaded");
+        String StepCount =  prefs.getString("Steps", "0");
+        String DeviceName = "MissingNo";
+
+        //Device Image
+        DeviceImageButton = findViewById(R.id.imageButtonDevicePicID);
+        DeviceImageButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                //Move select device logc to here//TODO
+                Intent intent = new Intent(MainActivity.this, ScanActivity.class);
+                startActivityForResult(intent, 2);
+                Toast.makeText(MainActivity.this, "image pressed", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+
+
+        // Name
+        TextView tvDeviceName = findViewById(R.id.textViewDeviceNameID);
+        tvDeviceName.setText("Name: " + DeviceName);
+
+        //Firmware Version
+        tvFirmwareVersion = findViewById(R.id.textViewFirmwareVersionID);
+        tvFirmwareVersion.setText("Firmware: " + FirmwareVersion);
+
+        //Heart Rate
+        tvHeartRate = findViewById(R.id.textViewHeartRateID);
+        tvHeartRate.setText("0"); //TODO get actual heartrate
+
+        tvSteps = (TextView) findViewById(R.id.textViewStepcountID);
+        tvSteps.setText("Steps: " + StepCount);
+
+        // Battery
+        tvTemp = (TextView) findViewById(R.id.textViewBatteryID);
+        tvTemp.setText("Battery: " + BatteryPercent + "% ");
+
+        //Image
+        DeviceImageButton.setImageResource(R.drawable.nodeviceimage);
+
+
+
+
+        //Last answer
+        //TODO add last answer and connected info, make select device related to connection
+
+
+
+    }
+
+    void updateWatchInfo() {
+        String BatteryPercent = prefs.getString("BatteryPercent", "xxx");
+        String StepCount =  prefs.getString("Steps", "0");
+
+        //update steps
+        tvSteps.setText("Steps: " + StepCount);
+        //update battery
+        tvTemp.setText("Battery: " + BatteryPercent + "% ");
+        //update heartrate //TODO
+
+
     }
 
 
