@@ -3,7 +3,6 @@ package com.atcnetz.de.notification;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.View;
@@ -20,11 +19,11 @@ public class Settings extends Activity {
     private LocalBroadcastManager localBroadcastManager;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
-    EditText CustomBLEcmd;
+    //EditText CustomBLEcmd;
     int VibrationIntens = 0;
-    int DisplayMode = 0;
     int NotificationMode = 0;
-    int MovementDisplay = 0;
+    //int DisplayMode = 0;
+    //int MovementDisplay = 0;
     int ContrastDisplay = 0;
 
     @Override
@@ -33,13 +32,15 @@ public class Settings extends Activity {
         setContentView(R.layout.activity_settings);
         prefs = getSharedPreferences("Settings", MODE_PRIVATE);
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
-        CustomBLEcmd = findViewById(R.id.editText);
-        Button button = findViewById(R.id.button);
+        /*CustomBLEcmd = findViewById(R.id.editText);
+        Button button = findViewById(R.id.sendCMDbuttonID);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 sendBLEcmd(CustomBLEcmd.getText().toString());
             }
         });
+
+         */
 
         Button set_filter_button = findViewById(R.id.set_filter);
         set_filter_button.setOnClickListener(new View.OnClickListener() {
@@ -76,16 +77,7 @@ public class Settings extends Activity {
             }
         });
 
-        Button privacy_policy_button = findViewById(R.id.privacyPolicyButtonID);
-        privacy_policy_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse("https://atcnetz.de/privacy_policy.html"));
-                startActivity(intent);
-            }
-        });
+
 
 
 
@@ -95,8 +87,8 @@ public class Settings extends Activity {
         initBattandFW();
         initVibration();
         initContrast();
-        initMovementDisplay();
-        initDisplayMode();
+        //initMovementDisplay();
+        //initDisplayMode();
         initNotifiContent();
 
         initDoNotDisturb();
@@ -194,6 +186,7 @@ public class Settings extends Activity {
 
     }
 
+/*
     void initMovementDisplay() {
 
         MovementDisplay = prefs.getInt("DisplayMovement", 0);
@@ -262,7 +255,7 @@ public class Settings extends Activity {
         else Radiobutton3.setChecked(true);
 
     }
-
+*/
     void initNotifiContent() {
 
         NotificationMode = prefs.getInt("NotificationMode", 0);
@@ -339,6 +332,7 @@ public class Settings extends Activity {
             editor.apply();
         }});
     }
+
 
     @Override
     protected void onStart() {

@@ -37,7 +37,7 @@ public class NofiticationPicker extends Activity {
         statusText = findViewById(R.id.textView4);
         listviewinit();
         new LoadAppsViaTask().execute();
-        Button Button = findViewById(R.id.button);
+        Button Button = findViewById(R.id.sendCMDbuttonID);
         Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();

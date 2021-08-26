@@ -1,22 +1,17 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:editTextColor">#000000</item>
         <item name="android:textColorPrimary">#000000</item>
-        <item name="android:textColorSecondary">#000000</item>
-        <item name="android:textColorTertiary">#000000</item>
-        <item name="android:textColorPrimaryInverse">#000000</item>
-        <item name="android:textColorSecondaryInverse">#000000</item>
-        <item name="android:textColorTertiaryInverse">#000000</item>
         <item name="android:textColor">#000000</item>
-
+        <item name="android:textColorLink">#0000FF</item>
         <!--
-        <item name="android:colorBackground">#FFFF0000</item>
+            <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 
         -->
     </style>
@@ -25,6 +20,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

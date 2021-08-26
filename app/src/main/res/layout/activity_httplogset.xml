@@ -240,7 +240,7 @@
                     android:text="AT+PUSH=0,1234567890,0,1" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/sendCMDbuttonID"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Custom BLe CMD" />

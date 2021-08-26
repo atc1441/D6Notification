@@ -3,9 +3,19 @@
     <string name="bt_unavailable">Bluetooth unavailable</string>
     <string name="bt_disabled">Bluetooth disabled, turn on and restart</string>
     <string name="welcome">\nPlease wait a moment and then select your D6 Fitness Tracker.\n</string>
-    <string name="open_privacy_policy">Privacy policy</string>
-    <string name="title_activity_root">RootActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="open_privacy_policy">View our <a href="https://atcnetz.de/privacy_policy.html">Privacy Policy</a> here.</string>
+
+    <string name="welcome_Text">Welcome to the D6 Notification App</string>
+    <string name="notification_checkbox_text">Notification\'s</string>
+    <string name="log_msg_checkbox">Log MSG\'s</string>
+    <string name="battery_text">Battery: Not Connected</string>
+    <string name="devName_text">Name: Not Connected</string>
+    <string name="clear_log">Clear</string>
+    <string name="settings_button_description">Settings Button</string>
+    <string name="firmware_Textview">Firmware: Not Connected</string>
+    <string name="steps_textview">0</string>
+    <string name="heartRate_textview">0</string>
+    <string name="hearticondescription">HeartIconDescription</string>
+    <string name="steps_icon_description">Steps Icon Description</string>
+    <string name="deviceimage_description">deviceImage Description</string>
 </resources>

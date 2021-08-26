@@ -2,7 +2,6 @@ package com.atcnetz.de.notification;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,18 +11,20 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
+
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class D6SettingsActivity extends AppCompatActivity {
     private LocalBroadcastManager localBroadcastManager;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
+    int DisplayMode = 0;
+    int MovementDisplay = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alarm);
+        setContentView(R.layout.activity_d6_settings);
         prefs = getSharedPreferences("Settings", MODE_PRIVATE);
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
 
@@ -33,8 +34,86 @@ public class D6SettingsActivity extends AppCompatActivity {
         initAlarm2();
         initAlarm3();
         initAlarm4();
+        initMovementDisplay();
+        initDisplayMode();
 
     }
+
+
+
+    void initMovementDisplay() {
+
+        MovementDisplay = prefs.getInt("DisplayMovement", 0);
+
+        RadioButton Radiobutton1 = findViewById(R.id.MovementOff);
+        Radiobutton1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sendBLEcmd("AT+HANDSUP=0");
+                editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+                editor.putInt("DisplayMovement", 0);
+                editor.apply();
+            }
+        });
+        RadioButton Radiobutton2 = findViewById(R.id.MovementOn);
+        Radiobutton2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sendBLEcmd("AT+HANDSUP=2");
+                editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+                editor.putInt("DisplayMovement", 2);
+                editor.apply();
+            }
+        });
+
+        if (MovementDisplay == 0)
+            Radiobutton1.setChecked(true);
+        else Radiobutton2.setChecked(true);
+
+    }
+
+    void initDisplayMode() {
+
+        DisplayMode = prefs.getInt("DisplayMode", 0);
+
+        RadioButton Radiobutton1 = findViewById(R.id.vibration11);
+        Radiobutton1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sendBLEcmd("AT+DISMOD=1");
+                editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+                editor.putInt("DisplayMode", 0);
+                editor.apply();
+            }
+        });
+        RadioButton Radiobutton2 = findViewById(R.id.vibration12);
+        Radiobutton2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sendBLEcmd("AT+DISMOD=2");
+                editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+                editor.putInt("DisplayMode", 1);
+                editor.apply();
+            }
+        });
+        RadioButton Radiobutton3 = findViewById(R.id.vibration13);
+        Radiobutton3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sendBLEcmd("AT+DISMOD=3");
+                editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+                editor.putInt("DisplayMode", 2);
+                editor.apply();
+            }
+        });
+
+        if (DisplayMode == 0)
+            Radiobutton1.setChecked(true);
+        else if (DisplayMode == 1)
+            Radiobutton2.setChecked(true);
+        else Radiobutton3.setChecked(true);
+
+    }
+
+
+
+
+    // Start of alarm stuff ##################################################################
 
     Integer AlarmDaysM1 = 0;
     EditText Alarm1h;

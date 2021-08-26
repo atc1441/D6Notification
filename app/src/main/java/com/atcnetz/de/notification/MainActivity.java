@@ -14,13 +14,14 @@ import android.content.SharedPreferences;
 import android.provider.Settings;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import java.io.BufferedReader;
@@ -44,14 +45,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
     TextView tvSteps;
     TextView tvTemp;
     TextView tvFirmwareVersion;
+    TextView tvPolicy;
+    TextView tvDeviceName;
     //Buttons
     ImageButton DeviceImageButton;
     ImageButton SettingsButton;
-    Button Button4;
-    CheckBox checkBox;
-    CheckBox checkBox1;
+    Button ClearLogButton;
+    CheckBox NotificationsCheckBox;
+    CheckBox LogCheckBox;
     //Other
     ScrollView scrollview;
+    EditText CustomBLEcmd;
 
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
@@ -65,19 +69,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
             clearLog();
             load();
             scrollDown();
-        } else if (v.getId() == R.id.selectAppsButtonID) {//TODO remove this after test
-            Intent intent = new Intent(this, NofiticationPicker.class);
-            startActivityForResult(intent, 2);
-            scrollDown();
-        } else if (v.getId() == R.id.checkBox) {
+        } else if (v.getId() == R.id.notificationCheckBoxID) {
             editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
-            editor.putBoolean("isNotificationEnabled", checkBox.isChecked());
+            editor.putBoolean("isNotificationEnabled", NotificationsCheckBox.isChecked());
             editor.apply();
             stopService(new Intent(this, BLEservice.class));
-            if (checkBox.isChecked() && !isMyServiceRunning()) startService(new Intent(this, BLEservice.class));
-        } else if (v.getId() == R.id.checkBox1) {
+            if (NotificationsCheckBox.isChecked() && !isMyServiceRunning()) startService(new Intent(this, BLEservice.class));
+        } else if (v.getId() == R.id.logCheckBoxID) {
             editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
-            editor.putBoolean("isDebugEnabled", checkBox1.isChecked());
+            editor.putBoolean("isDebugEnabled", LogCheckBox.isChecked());
             editor.apply();
         }
     }
@@ -89,27 +89,31 @@ public class MainActivity extends Activity implements View.OnClickListener {
         //Textviews
         tvContent = (TextView) findViewById(R.id.tv_content);
         scrollview = (ScrollView) findViewById(R.id.scroll);
+        tvPolicy = findViewById(R.id.privacyPolicytextViewID);
+        tvPolicy.setMovementMethod(LinkMovementMethod.getInstance()); //setup hyperlink
         //Buttons
         SettingsButton = findViewById(R.id.SettingsButtonID);
         SettingsButton.setOnClickListener(this);
-        Button4 = findViewById(R.id.clearLogButtonID);
-        Button4.setOnClickListener(this);
-        checkBox = findViewById(R.id.checkBox);
-        checkBox.setOnClickListener(this);
-        checkBox1 = findViewById(R.id.checkBox1);
-        checkBox1.setOnClickListener(this);
+        ClearLogButton = findViewById(R.id.clearLogButtonID);
+        ClearLogButton.setOnClickListener(this);
+        NotificationsCheckBox = findViewById(R.id.notificationCheckBoxID);
+        NotificationsCheckBox.setOnClickListener(this);
+        LogCheckBox = findViewById(R.id.logCheckBoxID);
+        LogCheckBox.setOnClickListener(this);
         //Other
         prefs = getSharedPreferences("Settings", MODE_PRIVATE);
 
         //Set checkbox
-        checkBox.setChecked(prefs.getBoolean("isNotificationEnabled", true));
-        checkBox1.setChecked(prefs.getBoolean("isDebugEnabled", false));
+        NotificationsCheckBox.setChecked(prefs.getBoolean("isNotificationEnabled", true));
+        LogCheckBox.setChecked(prefs.getBoolean("isDebugEnabled", false));
 
         //check for DnDisturb
         if (!isNotificationServiceEnabled()) {
             enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog();
             enableNotificationListenerAlertDialog.show();
         }
+
+
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
         broadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -119,6 +123,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         };
         //if(!isMyServiceRunning() && prefs.getBoolean("isNotificationEnabled", true))startService(new Intent(this, BLEservice.class));
+
+        CustomBLEcmd = findViewById(R.id.editText);
+        Button BLEcmdButton = findViewById(R.id.sendCMDbuttonID);
+        BLEcmdButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sendBLEcmd(CustomBLEcmd.getText().toString());
+            }
+        });
 
 
         initWatchInfo();
@@ -130,8 +142,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 ENABLED_NOTIFICATION_LISTENERS);
         if (!TextUtils.isEmpty(flat)) {
             final String[] names = flat.split(":");
-            for (int i = 0; i < names.length; i++) {
-                final ComponentName cn = ComponentName.unflattenFromString(names[i]);
+            for (String name : names) {
+                final ComponentName cn = ComponentName.unflattenFromString(name);
                 if (cn != null) {
                     if (TextUtils.equals(pkgName, cn.getPackageName())) {
                         return true;
@@ -193,7 +205,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 editor.putString("MacId", mDevice.getAddress());
                 editor.apply();
                 stopService(new Intent(this, BLEservice.class));
-                if (checkBox.isChecked() && !isMyServiceRunning()) startService(new Intent(this, BLEservice.class));
+                if (NotificationsCheckBox.isChecked() && !isMyServiceRunning()) startService(new Intent(this, BLEservice.class));
             }
         } else if (requestCode == 34) {
 
@@ -232,7 +244,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     public void load() {
-        tvContent.setText("Please click on Select Device to select your D6 Fitness Tracker, you need to accept Location services to enable Bluetooth acces to this app.\r\n\r\nYou can Enable or Disable the notification for certain app's via the Select App's Button.\r\n\r\nHave fun with this App and give me feedback if you found a bug :)\r\n\r\nSpecial thanks the following people for contributions:\r\nNeil O'Brien\r\n");
+        tvContent.setText("Please Long click on Device Image to select your device, you need to accept Location services to enable Bluetooth acces to this app.\r\n" +
+                "\r\nYou can Enable or Disable the notification for certain app's via the Select App's Button in settings (Click cog icon for settings).\r\n" +
+                "\r\nHave fun with this App and give me feedback if you found a bug :)\r\n\r\nSpecial thanks the following people for contributions:\r\nNeil O'Brien\r\n");
         FileInputStream fis = null;
         updateWatchInfo();
         try {
@@ -284,25 +298,40 @@ public class MainActivity extends Activity implements View.OnClickListener {
         String BatteryPercent = prefs.getString("BatteryPercent", "xxx");
         String FirmwareVersion = prefs.getString("FirmwareVersion", "not loaded");
         String StepCount =  prefs.getString("Steps", "0");
-        String DeviceName = "MissingNo";
+        String DeviceName = prefs.getString("MacId", "00:00:00:00:00:00");
+        String HeartRate = prefs.getString("HeartRate", "0");
 
-        //Device Image
+        //Device Image Button
         DeviceImageButton = findViewById(R.id.imageButtonDevicePicID);
         DeviceImageButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                //Move select device logc to here//TODO
                 Intent intent = new Intent(MainActivity.this, ScanActivity.class);
                 startActivityForResult(intent, 2);
-                Toast.makeText(MainActivity.this, "image pressed", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "image pressed", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
 
+        //Image
+        if (FirmwareVersion != null){
+            //Toast.makeText(MainActivity.this, FirmwareVersion, Toast.LENGTH_SHORT).show();
+            if (FirmwareVersion.equals("PineTime")){
+                DeviceImageButton.setImageResource(R.drawable.imagepinetime);
+            } else if (FirmwareVersion.equals("P8")){
+                DeviceImageButton.setImageResource(R.drawable.imagep8);
+            } else if (FirmwareVersion.equals("P22")){
+                DeviceImageButton.setImageResource(R.drawable.imagep22);
+            } else {
+                DeviceImageButton.setImageResource(R.drawable.nodeviceimage);
+            }
+        }
+
+
 
         // Name
-        TextView tvDeviceName = findViewById(R.id.textViewDeviceNameID);
-        tvDeviceName.setText("Name: " + DeviceName);
+        tvDeviceName = findViewById(R.id.textViewDeviceNameID);
+        tvDeviceName.setText("MAC: " + DeviceName);
 
         //Firmware Version
         tvFirmwareVersion = findViewById(R.id.textViewFirmwareVersionID);
@@ -310,7 +339,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         //Heart Rate
         tvHeartRate = findViewById(R.id.textViewHeartRateID);
-        tvHeartRate.setText("0"); //TODO get actual heartrate
+        tvHeartRate.setText(HeartRate);
 
         tvSteps = (TextView) findViewById(R.id.textViewStepcountID);
         tvSteps.setText("Steps: " + StepCount);
@@ -318,9 +347,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         // Battery
         tvTemp = (TextView) findViewById(R.id.textViewBatteryID);
         tvTemp.setText("Battery: " + BatteryPercent + "% ");
-
-        //Image
-        DeviceImageButton.setImageResource(R.drawable.nodeviceimage);
 
 
 
@@ -335,14 +361,48 @@ public class MainActivity extends Activity implements View.OnClickListener {
     void updateWatchInfo() {
         String BatteryPercent = prefs.getString("BatteryPercent", "xxx");
         String StepCount =  prefs.getString("Steps", "0");
+        String HeartRate = prefs.getString("HeartRate", "0");
+        String FirmwareVersion = prefs.getString("FirmwareVersion", "not loaded");
+        String DeviceName = prefs.getString("MacId", "00:00:00:00:00:00");
+
+
+
+        //Image
+        if (FirmwareVersion != null){
+            //Toast.makeText(MainActivity.this, FirmwareVersion, Toast.LENGTH_SHORT).show();
+            if (FirmwareVersion.equals("PineTime")){
+                DeviceImageButton.setImageResource(R.drawable.imagepinetime);
+            } else if (FirmwareVersion.equals("P8")){
+                DeviceImageButton.setImageResource(R.drawable.imagep8);
+            } else if (FirmwareVersion.equals("P22")){
+                DeviceImageButton.setImageResource(R.drawable.imagep22);
+            } else {
+                DeviceImageButton.setImageResource(R.drawable.noimage);
+            }
+        }
+
 
         //update steps
-        tvSteps.setText("Steps: " + StepCount);
+        tvSteps.setText(StepCount);
         //update battery
         tvTemp.setText("Battery: " + BatteryPercent + "% ");
-        //update heartrate //TODO
+        //update heartrate //
+        tvHeartRate.setText(HeartRate);
+
+        // update MAC
+        tvDeviceName.setText("MAC: " + DeviceName);
+
+        // update Firmware Version
+        tvFirmwareVersion.setText("Firmware: " + FirmwareVersion);
 
 
+    }
+
+    public void sendBLEcmd(String message) {
+        Intent intent = new Intent("MSGtoServiceIntentBLEcmd");
+        if (message != null)
+            intent.putExtra("MSGtoService", message);
+        localBroadcastManager.sendBroadcast(intent);
     }
 
 

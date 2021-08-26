@@ -17,7 +17,6 @@ package com.atcnetz.de.notification.util;
 
 
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Icon;
 
 /** LeScanned Bluetooth Device */
 public class Apps {

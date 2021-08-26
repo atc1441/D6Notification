@@ -6,13 +6,8 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.os.StatFs;
-import android.widget.Toast;
 
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import com.atcnetz.de.notification.MainActivity;
-import com.atcnetz.de.notification.httplogset;
 
 import java.io.File;
 import java.io.FileWriter;
