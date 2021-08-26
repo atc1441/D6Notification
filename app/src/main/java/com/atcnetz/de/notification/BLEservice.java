@@ -1,7 +1,6 @@
 package com.atcnetz.de.notification;
 
 import android.annotation.SuppressLint;
-import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -26,9 +25,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import android.os.SystemClock;
 import android.os.Vibrator;
-import android.provider.SyncStateContract;
 
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -369,6 +366,8 @@ public class BLEservice extends Service {
                         addCMD("AT+PACE");
                         sleep(30);
                         addCMD("AT+BATT");
+                        sleep(30);
+                        addCMD("AT+HRTR");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -391,7 +390,7 @@ public class BLEservice extends Service {
 
     private void setNotify() {
         updateNitify((isConnected ? "Connected" : "Disconnected") + " - Steps: " + prefs.getString("Steps", "0") + " - Battery: " + prefs.getString("BatteryPercent", "xxx") + "% " + (prefs.getBoolean("isDebugEnabled", false) ? "- Last Answer: " + lastReceiveTime : ""));
-    }
+    } //TODO look here for step data
 
     private void setLastReceiveTime() {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
@@ -485,6 +484,12 @@ public class BLEservice extends Service {
                 } else {
                     postToastMessage("Logging not enabled");
                 }
+            } else if (isInCMD(response, "AT+HRTR")) {
+                hasSend = true;
+                SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+                editor.putString("HeartRate", response.substring(8));
+                editor.apply();
+                postToastMessage("HeartRate: " + response.substring(8));
             }
         }
     }

@@ -1,91 +1,275 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayoutID"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:elevation="10dp"
     android:orientation="vertical"
-    tools:context=".NofiticationPicker"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp">
+    tools:context=".NofiticationPicker">
+
 
     <TextView
-        android:id="@+id/textView2"
-        android:gravity="center"
+        android:id="@+id/settingsTitletextViewID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Welcome to the D6 Notification App" />
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:gravity="center"
-        android:orientation="horizontal">
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enable Notification's"/>
-        <CheckBox
-        android:id="@+id/checkBox1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enable Log MSG's"/>
+        android:text="@string/welcome_Text"
 
-    </LinearLayout>
+        android:textSize="18dp" />
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select Device" />
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select App's" />
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/open_privacy_policy" />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Clear Log" />
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Settings" />
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="HTTP/LOG Settings" />
-
-    </LinearLayout>
-
-    <ScrollView
-        android:id="@+id/scroll"
+        android:id="@+id/checkboxRowID"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/notificationCheckBoxID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/notification_checkbox_text"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <CheckBox
+            android:id="@+id/logCheckBoxID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/log_msg_checkbox"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
-            android:id="@+id/tv_content"
+            android:id="@+id/privacyPolicytextViewID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/open_privacy_policy"
+            android:textAlignment="center"
+            android:textSize="12dp" />
+
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/WatchCardID"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="3dp"
+        android:clipToPadding="false"
+        android:elevation="10dp"
+        android:focusable="true"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="8dp"
+        app:cardPreventCornerOverlap="false"
+        tools:ignore="DuplicateSpeakableTextCheck"
+        app:strokeWidth="2dp"
+        app:strokeColor="#000000">
+
+        <!-- Main Content View -->
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
+            android:layout_height="match_parent">
+
+
+            <ImageButton
+                android:id="@+id/SettingsButtonID"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="#FFFFFF"
+                android:contentDescription="@string/settings_button_description"
+                android:src="@drawable/settings_5_fill"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/textViewFirmwareVersionID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="@string/firmware_Textview"
+                android:textAlignment="center"
+                android:textSize="17sp"
+                app:layout_constraintStart_toEndOf="@+id/imageButtonDevicePicID"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDeviceNameID" />
+
+            <TextView
+                android:id="@+id/textViewBatteryID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_weight="1"
+                android:text="@string/battery_text"
+                android:textAlignment="center"
+                android:textSize="17sp"
+                app:layout_constraintStart_toEndOf="@+id/imageButtonDevicePicID"
+                app:layout_constraintTop_toBottomOf="@+id/textViewFirmwareVersionID" />
+
+            <TextView
+                android:id="@+id/textViewDeviceNameID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="36dp"
+                android:text="@string/devName_text"
+                android:textAlignment="center"
+                android:textSize="17sp"
+                app:layout_constraintStart_toEndOf="@+id/imageButtonDevicePicID"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/imageButtonDevicePicID"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:contentDescription="@string/deviceimage_description"
+                android:src="@drawable/nodeviceimage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/healthCardID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="18dp"
+                app:cardPreventCornerOverlap="false"
+                app:contentPaddingBottom="3dp"
+                app:contentPaddingLeft="10dp"
+                app:contentPaddingRight="10dp"
+                app:contentPaddingTop="3dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <ImageView
+                        android:id="@+id/imageViewStepsID"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/steps_icon_description"
+                        android:src="@drawable/human_footprint"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textViewStepcountID"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1"
+                        android:text="@string/steps_textview"
+                        android:textAlignment="center"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageViewStepsID"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/imageViewHeartRateID"
+                        android:layout_width="24dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:contentDescription="@string/hearticondescription"
+                        android:src="@drawable/heart"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textViewHeartRateID"
+                        app:layout_constraintStart_toEndOf="@+id/textViewStepcountID"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textViewHeartRateID"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/heartRate_textview"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="AT+PUSH=0,1234567890,0,1"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/sendCMDbuttonID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Custom\nCMD"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/clearLogButtonID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clear_log"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="#FFFFFF"/>
+
+    </LinearLayout>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/scrollCardID"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="3dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="8dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="#000000">
+
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:textColor="#000000" />
+        </ScrollView>
+
+        </com.google.android.material.card.MaterialCardView>
+
 </LinearLayout>

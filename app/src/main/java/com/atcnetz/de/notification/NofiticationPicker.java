@@ -37,7 +37,7 @@ public class NofiticationPicker extends Activity {
         statusText = findViewById(R.id.textView4);
         listviewinit();
         new LoadAppsViaTask().execute();
-        Button Button = findViewById(R.id.button);
+        Button Button = findViewById(R.id.sendCMDbuttonID);
         Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
@@ -47,7 +47,7 @@ public class NofiticationPicker extends Activity {
                 new LoadAppsViaTask().execute();
             }
         });
-        Button Button1 = findViewById(R.id.button1);
+        Button Button1 = findViewById(R.id.selectDevButtonID);
         Button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();

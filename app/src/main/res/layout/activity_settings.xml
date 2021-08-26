@@ -1,79 +1,206 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settingsRootLayoutID"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".NofiticationPicker"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp">
-    <ScrollView
+    tools:context=".NofiticationPicker">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/d6SettingsCardID"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/settingsTitletextViewID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Settings"
+            android:textSize="32sp"
+            android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/Battery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Please make your choices" />
+                android:text="Battery of Device: xx%" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/Battery"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Battery of Device: xx%" />
-
-                <TextView
-                    android:id="@+id/dump"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="   " />
-
-                <TextView
-                    android:id="@+id/Version"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Firmware on Device:" />
-            </LinearLayout>
-
-            <View
-                android:id="@+id/divider3"
+            <TextView
+                android:id="@+id/Version"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorAccent" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:text="Firmware on Device:" />
+        </LinearLayout>
 
-            <LinearLayout
+        <View
+            android:id="@+id/belowTitledividerID"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/colorAccent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/contentSelectCardID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:elevation="10dp"
+            app:contentPadding="5dp"
+            app:strokeColor="#000000"
+            app:strokeWidth="2dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/notifisetting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Home Screen Notification Content: "
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/notifisetting">
+
+                    <RadioButton
+                        android:id="@+id/notification1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="Title" />
+
+                    <RadioButton
+                        android:id="@+id/notification2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tickertext" />
+
+                    <RadioButton
+                        android:id="@+id/notification3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Text" />
+
+                    <RadioButton
+                        android:id="@+id/notification4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Appname" />
+                </RadioGroup>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:id="@+id/AppSelectRowID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/selectAppsButtonID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:backgroundTint="#000000"
+                android:text="Select App's"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/set_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#000000"
+                android:text="Filter"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/logAPISettingsButtonID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="#000000"
+            android:text="HTTP/LOG Settings"
+            android:textColor="#FFFFFF" />
+
+        <View
+            android:id="@+id/belowDSD6SettingsdividerID"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/colorAccent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/vibrateCardviewID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:elevation="10dp"
+            app:contentPadding="5dp"
+            app:strokeColor="#000000"
+            app:strokeWidth="2dp">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/vibrationIntesity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Vibration Power: " />
+                    android:text="Vibration Power: "
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <RadioGroup
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vibrationIntesity">
 
                     <RadioButton
                         android:id="@+id/vibration1"
@@ -94,32 +221,35 @@
                         android:layout_height="wrap_content"
                         android:text="High" />
                 </RadioGroup>
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <View
-                android:id="@+id/divider3636"
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/contrastCardVeiwID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:elevation="10dp"
+            app:contentPadding="5dp"
+            app:strokeColor="#000000"
+            app:strokeWidth="2dp">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorAccent" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/contrastD6Text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Display Contrast: " />
+                android:layout_height="match_parent">
 
                 <RadioGroup
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/contrastD6Text">
 
                     <RadioButton
                         android:id="@+id/contrast1"
@@ -140,808 +270,179 @@
                         android:layout_height="wrap_content"
                         android:text="High" />
                 </RadioGroup>
-            </LinearLayout>
-
-            <View
-                android:id="@+id/divider7"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorAccent" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/movement"
+                    android:id="@+id/contrastD6Text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Display on when moving: " />
+                    android:text="Display Contrast: "
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <RadioGroup
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/dontDisturbCardviewID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:elevation="10dp"
+            app:contentPadding="5dp"
+            app:strokeColor="#000000"
+            app:strokeWidth="2dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/dndtextViewID"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/MovementOff"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="Off" />
-
-                    <RadioButton
-                        android:id="@+id/MovementOn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="On" />
-                </RadioGroup>
-            </LinearLayout>
-
-            <View
-                android:id="@+id/divider4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorAccent" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/displaymode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Display Mode: " />
-
-                <RadioGroup
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/vibration11"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="Portrait" />
-
-                    <RadioButton
-                        android:id="@+id/vibration12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Left" />
-
-                    <RadioButton
-                        android:id="@+id/vibration13"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Right" />
-                </RadioGroup>
-            </LinearLayout>
-
-            <View
-                android:id="@+id/divider5"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorAccent" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/notifisetting"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Notification content on D6: " />
+                    android:text="Do Not Distrub:"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
+                    android:id="@+id/dnDSettingsRowID"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <RadioGroup
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/notification1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="true"
-                            android:text="Title" />
-
-                        <RadioButton
-                            android:id="@+id/notification2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Tickertext" />
-
-                        <RadioButton
-                            android:id="@+id/notification3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Text" />
-
-                        <RadioButton
-                            android:id="@+id/notification4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Appname" />
-                    </RadioGroup>
-
-                    <Button
-                        android:id="@+id/set_filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Filter" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorAccent" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical">
-
-
-                <TextView
-                    android:id="@+id/Alarm"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Alarm Settings on D6: " />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dndtextViewID">
 
                     <CheckBox
-                        android:id="@+id/enableAlarm1"
+                        android:id="@+id/enableNotDisturb"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Enable  Alarm 1 " />
+                        android:text="enable" />
 
                     <EditText
-                        android:id="@+id/Alarm1h"
+                        android:id="@+id/notDistStartH"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
                         android:maxLength="2"
-                        android:text="07" />
+                        android:text="22" />
 
                     <TextView
-                        android:id="@+id/AlarmTime1"
+                        android:id="@+id/AlarmTime88"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text=":" />
 
                     <EditText
-                        android:id="@+id/Alarm1m"
+                        android:id="@+id/notDistStartM"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
                         android:maxLength="2"
                         android:text="00" />
-                    <Button
-                        android:id="@+id/saveAlarm1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Save 1" />
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-
-                    <CheckBox
-                        android:id="@+id/Alarm1Mo"
+                    <TextView
+                        android:id="@+id/AlarmTime5747"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Mo." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm1Di"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Di." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm1Mi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Mi." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm1Do"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Do." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm1Fr"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Fr." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm1Sa"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Sa." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm1So"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="So." />
-                </LinearLayout>
-
-            </LinearLayout>
-            <View
-                android:id="@+id/divider9"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorAccent" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <CheckBox
-                        android:id="@+id/enableAlarm2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Enable  Alarm 2 " />
+                        android:gravity="center"
+                        android:text="-" />
 
                     <EditText
-                        android:id="@+id/Alarm2h"
+                        android:id="@+id/notDistStopH"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
                         android:maxLength="2"
-                        android:text="07" />
+                        android:text="05" />
 
                     <TextView
-                        android:id="@+id/AlarmTime2"
+                        android:id="@+id/AlarmTime547"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text=":" />
 
                     <EditText
-                        android:id="@+id/Alarm2m"
+                        android:id="@+id/notDistStopM"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
                         android:maxLength="2"
                         android:text="00" />
+
                     <Button
-                        android:id="@+id/saveAlarm2"
+                        android:id="@+id/saveDisturb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Save 2" />
-
+                        android:backgroundTint="#000000"
+                        android:text="Save "
+                        android:textColor="#FFFFFF" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
 
-                    <CheckBox
-                        android:id="@+id/Alarm2Mo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Mo." />
+    </LinearLayout>
 
-                    <CheckBox
-                        android:id="@+id/Alarm2Di"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Di." />
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/d6SettingsCardID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:elevation="10dp"
+        app:contentPadding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="#000000"
+        app:strokeWidth="2dp">
 
-                    <CheckBox
-                        android:id="@+id/Alarm2Mi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Mi." />
 
-                    <CheckBox
-                        android:id="@+id/Alarm2Do"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Do." />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-                    <CheckBox
-                        android:id="@+id/Alarm2Fr"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Fr." />
 
-                    <CheckBox
-                        android:id="@+id/Alarm2Sa"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Sa." />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Some DS-D6 Specific Settings:"
+                android:textSize="17sp"
+                android:layout_gravity="center" />
 
-                    <CheckBox
-                        android:id="@+id/Alarm2So"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="So." />
-                </LinearLayout>
-
-            </LinearLayout>
-            <View
-                android:id="@+id/divider54"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorAccent" />
-
-            <LinearLayout
+            <Button
+                android:id="@+id/alarmSettingsButtonID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                android:backgroundTint="#000000"
+                android:text="DS-D6 Settings + Alarm"
+                android:textColor="#FFFFFF" />
 
-                    <CheckBox
-                        android:id="@+id/enableAlarm3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Enable  Alarm 3 " />
-
-                    <EditText
-                        android:id="@+id/Alarm3h"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="2"
-                        android:text="07" />
-
-                    <TextView
-                        android:id="@+id/AlarmTime3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text=":" />
-
-                    <EditText
-                        android:id="@+id/Alarm3m"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="2"
-                        android:text="00" />
-                    <Button
-                        android:id="@+id/saveAlarm3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Save 3" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-
-                    <CheckBox
-                        android:id="@+id/Alarm3Mo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Mo." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm3Di"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Di." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm3Mi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Mi." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm3Do"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Do." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm3Fr"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Fr." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm3Sa"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Sa." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm3So"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="So." />
-                </LinearLayout>
-
-            </LinearLayout>
-            <View
-                android:id="@+id/divider342"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorAccent" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <CheckBox
-                        android:id="@+id/enableAlarm4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Enable  Alarm 4 " />
-
-                    <EditText
-                        android:id="@+id/Alarm4h"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="2"
-                        android:text="07" />
-
-                    <TextView
-                        android:id="@+id/AlarmTime4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text=":" />
-
-                    <EditText
-                        android:id="@+id/Alarm4m"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="2"
-                        android:text="00" />
-                    <Button
-                        android:id="@+id/saveAlarm4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Save 4" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-
-                    <CheckBox
-                        android:id="@+id/Alarm4Mo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Mo." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm4Di"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Di." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm4Mi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Mi." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm4Do"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Do." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm4Fr"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Fr." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm4Sa"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Sa." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm4So"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="So." />
-                </LinearLayout>
-
-            </LinearLayout>
-            <View
-                android:id="@+id/divider655"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorAccent" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <CheckBox
-                        android:id="@+id/enableAlarm5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Enable  Alarm 5 " />
-
-                    <EditText
-                        android:id="@+id/Alarm5h"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="2"
-                        android:text="07" />
-
-                    <TextView
-                        android:id="@+id/AlarmTime5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text=":" />
-
-                    <EditText
-                        android:id="@+id/Alarm5m"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="2"
-                        android:text="00" />
-                    <Button
-                        android:id="@+id/saveAlarm5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Save 5" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-
-                    <CheckBox
-                        android:id="@+id/Alarm5Mo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Mo." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm5Di"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Di." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm5Mi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Mi." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm5Do"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Do." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm5Fr"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Fr." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm5Sa"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Sa." />
-
-                    <CheckBox
-                        android:id="@+id/Alarm5So"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="So." />
-                </LinearLayout>
-            </LinearLayout>
-            <View
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorAccent" />
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/enableNotDisturb"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="enable" />
-
-                <EditText
-                    android:id="@+id/notDistStartH"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:maxLength="2"
-                    android:text="22" />
-
-                <TextView
-                    android:id="@+id/AlarmTime88"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text=":" />
-
-                <EditText
-                    android:id="@+id/notDistStartM"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:maxLength="2"
-                    android:text="00" />
-
-                <TextView
-                    android:id="@+id/AlarmTime5747"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="-" />
-
-                <EditText
-                    android:id="@+id/notDistStopH"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:maxLength="2"
-                    android:text="05" />
-
-                <TextView
-                    android:id="@+id/AlarmTime547"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text=":" />
-
-                <EditText
-                    android:id="@+id/notDistStopM"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:maxLength="2"
-                    android:text="00" />
-
-                <Button
-                    android:id="@+id/saveDisturb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Save do not disturb" />
-            </LinearLayout>
-            <View
-                android:id="@+id/divider745"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorAccent" />
-
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/editText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="AT+PUSH=0,1234567890,0,1" />
-
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Custom BLe CMD" />
-
-            </LinearLayout>
         </LinearLayout>
-    </ScrollView>
-</RelativeLayout>
+
+
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

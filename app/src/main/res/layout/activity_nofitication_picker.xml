@@ -43,7 +43,7 @@
         android:orientation="vertical"
         android:visibility="visible" >
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/settingsTitletextViewID"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,12 +55,12 @@
         android:gravity="center"
         android:orientation="horizontal">
         <Button
-            android:id="@+id/button"
+            android:id="@+id/sendCMDbuttonID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Select All" />
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/selectDevButtonID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Deselect All" />

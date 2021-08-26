@@ -120,7 +120,7 @@ public class httplogset extends Activity {
 
     void init_custom_cmd() {
         CustomBLEcmd = findViewById(R.id.editText);
-        Button button = findViewById(R.id.button);
+        Button button = findViewById(R.id.sendCMDbuttonID);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 sendBLEcmd(CustomBLEcmd.getText().toString());
