@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import java.io.BufferedReader;
@@ -44,8 +45,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
     TextView tvHeartRate;
     TextView tvSteps;
     TextView tvTemp;
-    TextView tvFirmwareVersion;
+    TextView tvDeviceType;
     TextView tvPolicy;
+    TextView tvMacAddress;
     TextView tvDeviceName;
     //Buttons
     ImageButton DeviceImageButton;
@@ -56,6 +58,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     //Other
     ScrollView scrollview;
     EditText CustomBLEcmd;
+    boolean isConnected;
 
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
@@ -118,7 +121,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                String s = intent.getStringExtra("ToActivity");
+                //String s = intent.getStringExtra("ToActivity");
                 load();
             }
         };
@@ -203,6 +206,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 KLog("Got Device:" + mDevice.getName() + " " + mDevice.getAddress());
                 SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
                 editor.putString("MacId", mDevice.getAddress());
+                editor.putString("BleName" , mDevice.getName());
                 editor.apply();
                 stopService(new Intent(this, BLEservice.class));
                 if (NotificationsCheckBox.isChecked() && !isMyServiceRunning()) startService(new Intent(this, BLEservice.class));
@@ -260,7 +264,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 sb.append(text).append("\n");
             }
             KLog(sb.toString());
-
+            
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -296,10 +300,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     void initWatchInfo() {
         String BatteryPercent = prefs.getString("BatteryPercent", "xxx");
-        String FirmwareVersion = prefs.getString("FirmwareVersion", "not loaded");
+        String DeviceType = prefs.getString("FirmwareVersion", "not loaded");
         String StepCount =  prefs.getString("Steps", "0");
-        String DeviceName = prefs.getString("MacId", "00:00:00:00:00:00");
+        String bleName = prefs.getString("BleName", "not loaded");
+        String macId = prefs.getString("MacId", "00:00:00:00:00:00");
         String HeartRate = prefs.getString("HeartRate", "0");
+        isConnected = prefs.getBoolean("isConnected", false);
 
         //Device Image Button
         DeviceImageButton = findViewById(R.id.imageButtonDevicePicID);
@@ -308,34 +314,38 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public boolean onLongClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ScanActivity.class);
                 startActivityForResult(intent, 2);
-                //Toast.makeText(MainActivity.this, "image pressed", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
 
-        //Image
-        if (FirmwareVersion != null){
-            //Toast.makeText(MainActivity.this, FirmwareVersion, Toast.LENGTH_SHORT).show();
-            if (FirmwareVersion.equals("PineTime")){
-                DeviceImageButton.setImageResource(R.drawable.imagepinetime);
-            } else if (FirmwareVersion.equals("P8")){
-                DeviceImageButton.setImageResource(R.drawable.imagep8);
-            } else if (FirmwareVersion.equals("P22")){
-                DeviceImageButton.setImageResource(R.drawable.imagep22);
-            } else {
-                DeviceImageButton.setImageResource(R.drawable.nodeviceimage);
+
+
+
+        //check connection status and set image
+        if (isConnected){
+            setDeviceImage();
+            //Toast.makeText(MainActivity.this, "connection", Toast.LENGTH_SHORT).show();
+        } else { DeviceImageButton.setImageResource(R.drawable.nodeviceimage);
+            //Toast.makeText(MainActivity.this, "no connection", Toast.LENGTH_SHORT).show();
             }
+
+
+
+        // BLE name
+        tvDeviceName = findViewById(R.id.textViewDeviceNameID);
+        if (bleName != null){
+            tvDeviceName.setText("Name: " + bleName);
         }
 
 
 
-        // Name
-        tvDeviceName = findViewById(R.id.textViewDeviceNameID);
-        tvDeviceName.setText("MAC: " + DeviceName);
+        // MAC
+        tvMacAddress = findViewById(R.id.textViewMacID);
+        tvMacAddress.setText("MAC: " + macId);
 
         //Firmware Version
-        tvFirmwareVersion = findViewById(R.id.textViewFirmwareVersionID);
-        tvFirmwareVersion.setText("Firmware: " + FirmwareVersion);
+        tvDeviceType = findViewById(R.id.textViewDevTypeID);
+        tvDeviceType.setText("Device: " + DeviceType);
 
         //Heart Rate
         tvHeartRate = findViewById(R.id.textViewHeartRateID);
@@ -348,13 +358,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         tvTemp = (TextView) findViewById(R.id.textViewBatteryID);
         tvTemp.setText("Battery: " + BatteryPercent + "% ");
 
-
-
-
-        //Last answer
-        //TODO add last answer and connected info, make select device related to connection
-
-
+        //Connected?
+        //TODO add bluetooth icon.. blue if connected else red
 
     }
 
@@ -362,25 +367,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
         String BatteryPercent = prefs.getString("BatteryPercent", "xxx");
         String StepCount =  prefs.getString("Steps", "0");
         String HeartRate = prefs.getString("HeartRate", "0");
-        String FirmwareVersion = prefs.getString("FirmwareVersion", "not loaded");
-        String DeviceName = prefs.getString("MacId", "00:00:00:00:00:00");
+        String DeviceType = prefs.getString("FirmwareVersion", "not loaded");
+        String bleName = prefs.getString("BleName", "not loaded");
+        String macId = prefs.getString("MacId", "00:00:00:00:00:00");
+        isConnected = prefs.getBoolean("isConnected", false);
 
-
-
-        //Image
-        if (FirmwareVersion != null){
-            //Toast.makeText(MainActivity.this, FirmwareVersion, Toast.LENGTH_SHORT).show();
-            if (FirmwareVersion.equals("PineTime")){
-                DeviceImageButton.setImageResource(R.drawable.imagepinetime);
-            } else if (FirmwareVersion.equals("P8")){
-                DeviceImageButton.setImageResource(R.drawable.imagep8);
-            } else if (FirmwareVersion.equals("P22")){
-                DeviceImageButton.setImageResource(R.drawable.imagep22);
-            } else {
-                DeviceImageButton.setImageResource(R.drawable.noimage);
-            }
+        //check connection status and set image
+        if (isConnected){
+            setDeviceImage();
+        } else {
+            DeviceImageButton.setImageResource(R.drawable.nodeviceimage);
         }
-
 
         //update steps
         tvSteps.setText(StepCount);
@@ -390,12 +387,35 @@ public class MainActivity extends Activity implements View.OnClickListener {
         tvHeartRate.setText(HeartRate);
 
         // update MAC
-        tvDeviceName.setText("MAC: " + DeviceName);
+        tvMacAddress.setText("MAC: " + macId);
 
-        // update Firmware Version
-        tvFirmwareVersion.setText("Firmware: " + FirmwareVersion);
+        // update Device Type
+        tvDeviceType.setText("Device: " + DeviceType);
+
+        //update bleName
+        if (bleName != null){
+            tvDeviceName.setText("Name: " + bleName);
+        }
 
 
+
+    }
+
+    void setDeviceImage() {
+        String DeviceType = prefs.getString("FirmwareVersion", "not loaded");
+
+        //Image
+        if (DeviceType != null){
+            if (DeviceType.equals("PineTime")){
+                DeviceImageButton.setImageResource(R.drawable.imagepinetime);
+            } else if (DeviceType.equals("P8")){
+                DeviceImageButton.setImageResource(R.drawable.imagep8);
+            } else if (DeviceType.equals("P22")){
+                DeviceImageButton.setImageResource(R.drawable.imagep22);
+            } else {
+                DeviceImageButton.setImageResource(R.drawable.noimage);
+            }
+        }
     }
 
     public void sendBLEcmd(String message) {

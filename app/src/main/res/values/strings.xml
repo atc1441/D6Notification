@@ -8,14 +8,18 @@
     <string name="welcome_Text">Welcome to the D6 Notification App</string>
     <string name="notification_checkbox_text">Notification\'s</string>
     <string name="log_msg_checkbox">Log MSG\'s</string>
-    <string name="battery_text">Battery: Not Connected</string>
-    <string name="devName_text">Name: Not Connected</string>
+    <string name="devName_text">Name: No Device</string>
+    <string name="macText">MAC: No Device</string>
+    <string name="devType_Textview">Device: No Device</string>
+    <string name="battery_text">Battery: No Device</string>
     <string name="clear_log">Clear</string>
     <string name="settings_button_description">Settings Button</string>
-    <string name="firmware_Textview">Firmware: Not Connected</string>
     <string name="steps_textview">0</string>
     <string name="heartRate_textview">0</string>
     <string name="hearticondescription">HeartIconDescription</string>
     <string name="steps_icon_description">Steps Icon Description</string>
     <string name="deviceimage_description">deviceImage Description</string>
+    <string name="editTextHint">Custom Command EditText</string>
+    <string name="CustomCommandText">AT+PUSH=0,1234567890,0,1</string>
+    <string name="customCmdButtonText">Custom\nCMD</string>
 </resources>
