@@ -16,7 +16,7 @@
         android:gravity="center"
         android:text="@string/welcome_Text"
 
-        android:textSize="18dp" />
+        android:textSize="18sp" />
 
     <LinearLayout
         android:id="@+id/checkboxRowID"
@@ -29,7 +29,7 @@
             android:id="@+id/notificationCheckBoxID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:text="@string/notification_checkbox_text"
             tools:ignore="TouchTargetSizeCheck" />
 
@@ -37,18 +37,18 @@
             android:id="@+id/logCheckBoxID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:text="@string/log_msg_checkbox"
             tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
             android:id="@+id/privacyPolicytextViewID"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/open_privacy_policy"
             android:textAlignment="center"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -88,39 +88,50 @@
 
 
             <TextView
-                android:id="@+id/textViewFirmwareVersionID"
+                android:id="@+id/textViewDevTypeID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:text="@string/firmware_Textview"
+                android:layout_marginStart="10dp"
+                android:text="@string/devType_Textview"
                 android:textAlignment="center"
                 android:textSize="17sp"
                 app:layout_constraintStart_toEndOf="@+id/imageButtonDevicePicID"
-                app:layout_constraintTop_toBottomOf="@+id/textViewDeviceNameID" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewMacID" />
 
             <TextView
                 android:id="@+id/textViewBatteryID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:text="@string/battery_text"
                 android:textAlignment="center"
                 android:textSize="17sp"
                 app:layout_constraintStart_toEndOf="@+id/imageButtonDevicePicID"
-                app:layout_constraintTop_toBottomOf="@+id/textViewFirmwareVersionID" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewDevTypeID" />
 
             <TextView
                 android:id="@+id/textViewDeviceNameID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="36dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/devName_text"
                 android:textAlignment="center"
                 android:textSize="17sp"
                 app:layout_constraintStart_toEndOf="@+id/imageButtonDevicePicID"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewMacID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/macText"
+                android:textAlignment="center"
+                android:textSize="17sp"
+                app:layout_constraintStart_toEndOf="@+id/imageButtonDevicePicID"
+                app:layout_constraintTop_toBottomOf="@id/textViewDeviceNameID" />
 
             <ImageButton
                 android:id="@+id/imageButtonDevicePicID"
@@ -215,17 +226,19 @@
 
         <EditText
             android:id="@+id/editText"
-            android:layout_width="wrap_content"
+            android:inputType="text"
+            android:hint="@string/editTextHint"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="AT+PUSH=0,1234567890,0,1"
+            android:text="@string/CustomCommandText"
             android:textSize="16sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/sendCMDbuttonID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Custom\nCMD"
+            android:text="@string/customCmdButtonText"
             android:backgroundTint="@color/colorPrimary"
             android:textColor="#FFFFFF"
             android:textSize="12sp" />

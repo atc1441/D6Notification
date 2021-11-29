@@ -113,9 +113,11 @@ public class BLEservice extends Service {
             }
         }
     };
+
     private final BluetoothGattCallback mGattcallback = new BluetoothGattCallback() {
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
+            SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
             postToastMessageLog("Connection Changed: " + status + " " + newState);
             if (recoverState) {
                 recoverState = false;
@@ -125,13 +127,19 @@ public class BLEservice extends Service {
 
                 if (newState == BluetoothProfile.STATE_CONNECTED) {
                     isConnected = true;
+                    editor.putBoolean("isConnected", true);
+                    editor.apply();
                     tryBle = 0;
                     mStatus = newState;
                     mConnGatt.discoverServices();
                 } else {
                     isConnected = false;
+                    editor.putBoolean("isConnected", false);
+                    editor.apply();
                 }
                 if (status == 133 && newState == 0) {
+                    editor.putBoolean("isConnected", false);
+                    editor.apply();
                     isConnected = false;
                     tryBle++;
                 } else tryBle = 0;
@@ -184,6 +192,8 @@ public class BLEservice extends Service {
                                 addCMD("AT+BATT");
                                 sleep(30);
                                 addCMD("AT+PACE");
+                                sleep(30);
+                                addCMD("AT+HRTR");
                                 sleep(30);
                                 addCMD("AT+FINDPHONE=1");
                                 sleep(30);
@@ -485,11 +495,10 @@ public class BLEservice extends Service {
                     postToastMessage("Logging not enabled");
                 }
             } else if (isInCMD(response, "AT+HRTR")) {
-                hasSend = true;
                 SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
                 editor.putString("HeartRate", response.substring(8));
                 editor.apply();
-                postToastMessage("HeartRate: " + response.substring(8));
+                postToastMessage("HeartRateTest: " + response.substring(8));
             }
         }
     }
@@ -602,7 +611,7 @@ public class BLEservice extends Service {
     private void init() {
 
         if (BleDevice.equals("00:00:00:00:00:00")) {
-            postToastMessage("No Fitness Tracker selected, please Click on SELECT DEVICE");
+            postToastMessage("No device selected, please long press on the card above to select a device");
             return;
         }
         if (!BleUtil.isBLESupported(this)) {
