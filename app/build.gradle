@@ -6,7 +6,7 @@ android {
         applicationId "com.atcnetz.de.notification"
         minSdkVersion 21
         targetSdkVersion 31
-        versionCode 78
+        versionCode 79
         versionName = versionCode
     }
     buildTypes {
