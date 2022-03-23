@@ -1,5 +1,6 @@
 package com.atcnetz.de.notification;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
@@ -11,6 +12,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.provider.Settings;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -135,7 +138,36 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         });
 
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    if (this.checkSelfPermission(Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED){
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                        alertDialogBuilder.setMessage("This app needs location data to enable bluetooth scanning even when the app is closed or not in use.");
+                        alertDialogBuilder.setTitle("Location permission");
+                        alertDialogBuilder.setNegativeButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface1, int i) {
+                                dialogInterface1.cancel();
+                                requestPermissions(new String[]{Manifest.permission.BLUETOOTH_SCAN}, 1);
+                            }
+                        });
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                }
+            if (this.checkSelfPermission(Manifest.permission.BLUETOOTH_CONNECT)  != PackageManager.PERMISSION_GRANTED){
+                AlertDialog.Builder alertDialogBuilder1 = new AlertDialog.Builder(this);
+                alertDialogBuilder1.setMessage("This app does need \"bluetooth connect permissions\" to connect to BLE devices.");
+                alertDialogBuilder1.setTitle("BLE Connect permission");
+                alertDialogBuilder1.setNegativeButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                        requestPermissions(new String[]{Manifest.permission.BLUETOOTH_CONNECT}, 1);
+                    }
+                });
+                AlertDialog alertDialog1 = alertDialogBuilder1.create();
+                alertDialog1.show();
+            }
+        }
         initWatchInfo();
     }
 
